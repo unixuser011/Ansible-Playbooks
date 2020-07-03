@@ -1,0 +1,7 @@
+---
+- name: Test connection to host
+  hosts: lanhosts
+
+  tasks:
+         - name: Execute ping test
+           ping:
