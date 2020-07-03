@@ -1,0 +1,10 @@
+---
+- name: Check for updates (yum)
+  hosts: lanhosts
+
+  tasks:
+        - name: Check for updates (yum)
+          yum: list=updates update_cache=true
+          register: yumoutput
+        - debug:
+                msg: "{{ yumoutput.results | map(attribute='name') | list }}"
