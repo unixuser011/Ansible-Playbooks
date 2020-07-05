@@ -8,17 +8,16 @@
                  register: yumoutput
            vars:
                  packages:
-                         - htop
-                         - atop
-                         - iftop
-                         - nmon
-                         - sysstat
-                         - iotop
-                         - nicstat
-                         - vnstat
                          - nmap
                          - bind-utils
                          - wget
+                         - samba-client
+                         - cifs-utils
+                         - git
                          - yum-utils
+                         - kernel-headers
+                         - kernel-devel
+                         - "@Development Tools"
+                         - "@Additional Development"
          - debug:
                   msg: "{{ yumoutput.results | map(attribute='name') | list }}"
