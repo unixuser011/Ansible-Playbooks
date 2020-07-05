@@ -1,6 +1,6 @@
 ---
 - name: Test connection to host
-  hosts: lanhosts
+  hosts: all
 
   tasks:
          - name: Execute ping test
