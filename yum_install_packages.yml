@@ -1,5 +1,5 @@
 ---
-- hosts: lanhosts
+- hosts: all
   tasks:
          - name: Install Packages via yum
            yum:
