@@ -1,6 +1,6 @@
 ---
 - name: Check for updates (yum)
-  hosts: lanhosts
+  hosts: all
 
   tasks:
         - name: Check for updates (yum)
