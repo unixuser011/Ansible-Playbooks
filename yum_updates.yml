@@ -1,6 +1,6 @@
 ---
 - name: Update System (yum)
-  hosts: lanhosts
+  hosts: all
 
   tasks:
          - name: update the system
