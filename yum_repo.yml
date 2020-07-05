@@ -1,51 +1,28 @@
 ---
 - name: Install ELRepo
-  hosts: lanhosts
-
-- name: Define variables
-
-  elrepo_repo_version: "7.0-2"
-  elrepo_repo_url: "https://elrepo.org/linux/elrepo/el{{ ansible_distribution_major_version }}/{{ ansible_architecture }}/RPMS/elrepo-release-{{ elrepo_repo_version }}.el{{ ansible_distribution_major_version }}.elrepo.noarch.rpm
-  elrepo_repo_gpg_key_url: "/etc/pki/rpm-gpg/RPM-GPG-KEY-elrepo.org"
-  elrepo_repofile_path: "/etc/yum.repos.d/elrepo.repo"
-  elrepo_repo_disabled: true
+  hosts: all
 
   tasks:
          - name: Enable EPEL Repo on CentOS 8
            yum:
                  name: epel-release
                  state: latest
-                 become: True
-                 when: ansible_facts['os_family'] == 'RedHat' and ansible_facts['distribution_major_version'] == '8'
+           when: ansible_facts['os_family'] == 'RedHat' and ansible_facts['distribution_major_version'] == '8'
 
          - name: Enable EPEL Repo for Centos 7
            yum:
                 name: epel-release
                 state: latest
-                become: True
-                when: ansible_facts['os_family'] == 'RedHat' and ansible_facts['distribution_major_version'] == '7'
+           when: ansible_facts['os_family'] == 'RedHat' and ansible_facts['distribution_major_version'] == '7'
 
-         - name: Check if ELRepo is already configured
-           stat: path={{ elrepo_profile_path }}
-
-         - name: Install ELRepo
+         - name: Install ELRepo .RPM (CentOS 7)
            yum:
-             name: "{{ elrepo_repo_url }}"
-           register: result
-           until: '"failed" not in result'
-           retries: 3
-           delay: 5
-           when: not elrepo_repofile_result.stat.exists
+                name: http://elrepo.reloumirrors.net/elrepo/el7/x86_64/RPMS/elrepo-release-7.0-5.el7.elrepo.noarch.rpm
+                state: present
+           when: ansible_facts['os_family'] == 'RedHat' and ansible_facts['distribution_major_version'] == '7'
 
-         - name: Import ELRepo GPG Key
-           rpm_key:
-             key: "{{ elrepo_repo_gpg_key_url }}"
-             state: present
-           when: not elrepo_repofile.result.stat.exists
-
-         - Install ELRepo as disabled
-           lineinfile:
-             path: "{{ elrepo_repofile_path }}"
-             regexp: '^enabled=1'
-             line: 'enabled=0'
-           when: elrepo_repo_disabled
+         - name: Install ELRepo .RPM (CentOS 8)
+           yum:
+                name: http://elrepo.reloumirrors.net/elrepo/el8/x86_64/RPMS/elrepo-release-8.2-1.el8.elrepo.noarch.rpm
+                state: present
+           when: ansible_facts['os_family'] == 'RedHat' and ansible_facts['distribution_major_version'] == '8'
