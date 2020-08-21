@@ -17,6 +17,9 @@
                          - yum-utils
                          - kernel-headers
                          - kernel-devel
+                         - lsof
+                         - mailx
+                         - sendmail
                          - "@Development Tools"
                          - "@Additional Development"
          - debug:
