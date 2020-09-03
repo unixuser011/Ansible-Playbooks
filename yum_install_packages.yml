@@ -20,6 +20,9 @@
                          - lsof
                          - mailx
                          - sendmail
+                         - postfix
+                         - python3-policycoreutils
+                         - policycoreutils-python-utils
                          - "@Development Tools"
                          - "@Additional Development"
          - debug:
