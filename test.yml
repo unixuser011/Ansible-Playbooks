@@ -1,7 +1,0 @@
----
-- name: Test connection to host
-  hosts: all
-
-  tasks:
-         - name: Execute ping test
-           ping:
